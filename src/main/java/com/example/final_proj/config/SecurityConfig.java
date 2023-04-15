@@ -24,15 +24,17 @@ public class SecurityConfig{
         //Конфигурация работы Spring Security
         http.csrf().disable() //отключение защиты от межсайтовой подделки запросов
                 .authorizeHttpRequests() // все страницы должны быть защищены аутентификацией
-                .requestMatchers("/authentication", "/error").permitAll() //Всем пользователям доступны страницы атентификации и объект ошибки
+                .requestMatchers("/authentication", "/error", "/registration").permitAll() //Всем пользователям доступны страницы атентификации и объект ошибки
                 .anyRequest().authenticated() //Для любых других нужно аутентифицироваться
                 .and() //Позоляет соединять разные компоненты в рамках конфигурации (настройка аутентификации-ниже, с настройкой доступа-выше)
                 .formLogin().loginPage("/authentication") //При заходе на защещенные страницы надо направлять на нашу страницу аутентификации
                 .loginProcessingUrl("/process_login") //При нажатии на кнопку при входе данные будут направлятся сюда (встроенная проверка SpringSecurity)
                 .defaultSuccessUrl("/index", true) //На какую страницу направлется пользователь после успешной аутентификации (true-что бы
                 //в любом случае после УСПЕШНОЙ аутентификации )
-                .failureUrl("/authentication"); //Если не правильно то возрват на страницу аутентификации + на форму направляется объект error
+                .failureUrl("/authentication") //Если не правильно то возрват на страницу аутентификации + на форму направляется объект error
                 // который там и проверяется (на странице authentication (th:if))
+                .and()
+                .logout().logoutUrl("/logout").logoutSuccessUrl("/authentication");
         return http.build();
     }
     public SecurityConfig(PersonDetailsService personDetailsService) {
