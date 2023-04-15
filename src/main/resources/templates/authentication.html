@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Аутентификация</title>
+</head>
+<body>
+<h1>Вход</h1>
+<form method="POST" action="/process_login">
+  <label for="username">Введитен логин</label>
+  <input type="text" placeholder="Enter login" name="username" id="username">
+    <br>
+  <label for="password">Введитен логин</label>
+  <input type="password" placeholder="Enter password" name="password" id="password">
+  <input type="submit" value="Enter">
+</form>
+<div th:if="${param.error}" style="color: red">
+  Неправильный логин или пароль
+</div>
+</body>
+</html>
