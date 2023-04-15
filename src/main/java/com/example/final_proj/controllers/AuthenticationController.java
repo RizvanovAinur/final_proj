@@ -12,13 +12,5 @@ public class AuthenticationController {
     public String login(){
         return "authentication";
     }
-//    @GetMapping("/registration")
-//    public String registration(Model model){
-//        model.addAttribute("person", new Person());
-//        return "registration";
-//    }
-    @GetMapping("/registration")
-    public String registration(@ModelAttribute("person") Person person){
-        return "registration";
-    }
+
 }
