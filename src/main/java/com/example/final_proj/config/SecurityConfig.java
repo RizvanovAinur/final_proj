@@ -24,10 +24,12 @@ public class SecurityConfig{
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
         //Конфигурация работы Spring Security
-        http.csrf().disable() //отключение защиты от межсайтовой подделки запросов
+        http//csrf().disable() //отключение защиты от межсайтовой подделки запросов
                 .authorizeHttpRequests() // все страницы должны быть защищены аутентификацией
-                .requestMatchers("/authentication", "/error", "/registration").permitAll() //Всем пользователям доступны страницы атентификации и объект ошибки
-                .anyRequest().authenticated() //Для любых других нужно аутентифицироваться
+                .requestMatchers("/authentication", "/error", "/registration", "/resources/**", "/static/**","/css/**").permitAll() //Всем пользователям доступны страницы атентификации и объект ошибки
+///                .anyRequest().authenticated() //Для любых других нужно аутентифицироваться
+                .requestMatchers("/admin").hasRole("ADMIN")
+                .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and() //Позоляет соединять разные компоненты в рамках конфигурации (настройка аутентификации-ниже, с настройкой доступа-выше)
                 .formLogin().loginPage("/authentication") //При заходе на защещенные страницы надо направлять на нашу страницу аутентификации
                 .loginProcessingUrl("/process_login") //При нажатии на кнопку при входе данные будут направлятся сюда (встроенная проверка SpringSecurity)

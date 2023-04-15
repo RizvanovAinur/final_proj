@@ -3,9 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>index</title>
+    <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
 Messssage
-<a href="/logout">Выход</a>
+<!--<a href="/logout">Выход</a>-->
+<form method="post" action="/logout">
+    <button type="submit">Выход</button>
+</form>
 </body>
 </html>

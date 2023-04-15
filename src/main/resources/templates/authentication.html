@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Аутентификация</title>
+    <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
 <h1>Вход</h1>
 <form method="POST" action="/process_login">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
   <label for="username">Введитен логин</label>
   <input type="text" placeholder="Enter login" name="username" id="username">
     <br>
