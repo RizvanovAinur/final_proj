@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Главная страница</title>
+    <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<h1>Главная страница</h1>
+<form method="post" action="/logout">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <input type="submit" value="Выход">
+</form>
+
+<h1>Доступные товары</h1>
+<div th:each="element : ${products}">
+    <img th:src="'/img/'+${element.imageList[0].getFileName()}" width="200px">
+    <a th:href="@{product/info/{id}(id=${element.getId()})}" th:text="${element.getTitle()}"></a>
+    <p th:text="'Цена - ' + ${element.getPrice()} + 'р.'"></p>
+    <hr>
+</div>
+
+</body>
+</html>
