@@ -1,9 +1,12 @@
 package com.example.final_proj.controllers;
 
 import com.example.final_proj.models.Person;
+import com.example.final_proj.security.PersonDetails;
 import com.example.final_proj.services.PersonService;
 import com.example.final_proj.util.PersonValidator;
 import jakarta.validation.Valid;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +25,12 @@ public class MainController {
 
     @GetMapping("/index")
     public String index(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        String role = personDetails.getPerson().getRole();
+        if(role.equals("ROLE_ADMIN")){
+            return "redirect:/admin";
+        }
         return "index";
     }
 
