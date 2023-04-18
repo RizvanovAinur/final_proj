@@ -127,4 +127,22 @@ public class AdminController {
         productService.deleteProduct(id);
         return "redirect:/admin";
     }
+
+    @GetMapping("/admin/product/edit/{id}")
+    public String editProduct(Model model, @PathVariable("id") int id){
+        model.addAttribute("product", productService.getProduct(id));
+        model.addAttribute("category", categoryRepository.findAll());
+        return "product/editProduct";
+
+    }
+
+    @PostMapping("/admin/product/edit/{id}")
+    public String editProduct(@ModelAttribute("product") @Valid Product product, BindingResult bindingResult, @PathVariable("id") int id, Model model){
+        if(bindingResult.hasErrors()){
+            model.addAttribute("category", categoryRepository.findAll());
+            return "product/editProduct";
+        }
+        productService.updateProduct(id, product);
+        return "redirect:/admin";
+    }
 }
