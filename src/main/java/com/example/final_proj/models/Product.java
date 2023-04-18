@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.time.LocalDateTime;
+
 @Entity
 public class Product {
     @Id
@@ -26,4 +28,17 @@ public class Product {
     @Column(name="seller", nullable = false)
     @NotEmpty(message="Информация о продавце не может быть пустым")
     private String seller;
+    @ManyToOne(optional = false)
+    private Category category;
+
+    private LocalDateTime dateTime;
+
+    // Данный метод будет заполнять поле даты и времени при создании объекта класса
+    @PrePersist
+    private void init(){
+        dateTime=LocalDateTime.now();
+    }
+
+
+
 }
