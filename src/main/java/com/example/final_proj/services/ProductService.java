@@ -31,12 +31,12 @@ public class ProductService {
         product.setCategory(category);
         productRepository.save(product);
     }
-
+    @Transactional
     public void updateProduct(int id, Product product){
         product.setId(id);
         productRepository.save(product);
     }
-
+    @Transactional
     public void deleteProduct(int id){
         productRepository.deleteById(id);
     }
