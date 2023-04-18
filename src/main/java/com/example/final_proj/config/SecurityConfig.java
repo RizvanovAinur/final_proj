@@ -26,7 +26,7 @@ public class SecurityConfig{
         //Конфигурация работы Spring Security
         http//csrf().disable() //отключение защиты от межсайтовой подделки запросов
                 .authorizeHttpRequests() // все страницы должны быть защищены аутентификацией
-                .requestMatchers("/authentication", "/error", "/registration", "/resources/**", "/static/**","/css/**","/logout").permitAll() //Всем пользователям доступны страницы атентификации и объект ошибки
+                .requestMatchers("/authentication", "/error", "/registration", "/resources/**", "/static/**","/css/**","/logout", "/product").permitAll() //Всем пользователям доступны страницы атентификации и объект ошибки
 ///                .anyRequest().authenticated() //Для любых других нужно аутентифицироваться
                 .requestMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().hasAnyRole("USER", "ADMIN")

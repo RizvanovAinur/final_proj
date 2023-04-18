@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Продукты</title>
+</head>
+<body>
+<h1>Доступные товары</h1>
+<div th:each="element : ${products}">
+  <img th:src="'/img/'+${element.imageList[0].getFileName()}" width="300px">
+  <a th:href="@{product/info/{id}(id=${element.getId()})}" th:text="${element.getTitle()}"></a>
+  <p th:text="'Цена - ' + ${element.getPrice()} + 'р.'"></p>
+  <hr>
+</div>
+</body>
+</html>
