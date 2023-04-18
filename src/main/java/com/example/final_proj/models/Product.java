@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -32,6 +34,8 @@ public class Product {
     private Category category;
 
     private LocalDateTime dateTime;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
+    private List<Image> imageList=new ArrayList<>();
 
     // Данный метод будет заполнять поле даты и времени при создании объекта класса
     @PrePersist
