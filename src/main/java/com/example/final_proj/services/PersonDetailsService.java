@@ -28,7 +28,7 @@ public class PersonDetailsService implements UserDetailsService {
             //Выбрасываем исключение, что данный пользователь не найден
             //Данное исключение будет поймано SpringSecurity и сообщение
             //Будет выведено на страницу
-            throw new UsernameNotFoundException("Пользовател не найден!");
+            throw new UsernameNotFoundException("Пользователь не найден!");
         }
         return new PersonDetails(person.get());
     }

@@ -6,6 +6,10 @@
     <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
-<h1>Лич каб админ</h1>
+<h1>Личный кабинет администратора</h1>
+<form method="post" action="/logout" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <button type="submit">Выйти из кабинета администратора</button>
+</form>
+<a href="admin/product/add">Добавить товар</a>
 </body>
 </html>
