@@ -7,7 +7,7 @@
 <body>
 <h1>Доступные товары</h1>
 <div th:each="element : ${products}">
-  <img th:src="'/img/'+${element.imageList[0].getFileName()}" width="300px">
+  <img th:src="'/img/'+${element.imageList[0].getFileName()}" width="200px">
   <a th:href="@{product/info/{id}(id=${element.getId()})}" th:text="${element.getTitle()}"></a>
   <p th:text="'Цена - ' + ${element.getPrice()} + 'р.'"></p>
   <hr>
