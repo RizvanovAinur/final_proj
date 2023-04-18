@@ -6,7 +6,7 @@
   </head>
   <body>
     <h1>Добавление товара</h1>
-    <form th:method="POST" th:actino="@{/admin/product/add}" th:object="${product}" enctype="multipart/form-data">
+    <form th:method="POST" th:action="@{/admin/product/add}" th:object="${product}" enctype="multipart/form-data">
       <label for="title">Введите наименование товара: </label>
       <input type="text" th:field="*{title}" placeholder="Наименование" id="title">
       <br>
@@ -34,6 +34,8 @@
         </div>
       </select>
       <div style="color: red" th:if="${#fields.hasErrors('category')}" th:errors="*{category}"></div>
+      <br>
+      <label for="seller">Введите продовца: </label>
       <textarea th:field="*{seller}" placeholder="Продавец" id="seller"></textarea>
       <div style="color: red" th:if="${#fields.hasErrors('seller')}" th:errors="*{seller}"></div>
       <br>

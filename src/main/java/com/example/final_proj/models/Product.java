@@ -37,7 +37,7 @@ public class Product {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "product")
     private List<Image> imageList=new ArrayList<>();
     // Для какого именно товара будет предназаначена данная фотография
-    private void addImageToProduct(Image image){
+    public void addImageToProduct(Image image){
         image.setProduct(this);
         imageList.add(image);
     }
