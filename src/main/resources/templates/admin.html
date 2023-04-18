@@ -12,5 +12,16 @@
     <button type="submit">Выйти из кабинета администратора</button>
 </form>
 <a href="admin/product/add">Добавить товар</a>
+<div th:each="element : ${products}">
+<p th:text="'Наименование: ' + ${element.getTitle()}"></p>
+<p th:text="'Описание: ' + ${element.getDescription()}"></p>
+<p th:text="'Цена: ' + ${element.getPrice()}"></p>
+<p th:text="'Cклад: ' + ${element.getWarehouse()}"></p>
+<p th:text="'Продавец: ' + ${element.getSeller()}"></p>
+<p th:text="'Категория: ' + ${element.getCategory().getName()}"></p>
+<a th:href="@{/admin/product/edit/{id}(id=${element.getId()})}">Редактирование товара</a>
+<a th:href="@{/admin/product/delete/{id}(id=${element.getId()})}">Удаление товара</a>
+<hr>
+</div>
 </body>
 </html>
