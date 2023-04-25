@@ -6,50 +6,61 @@
     <link th:href="@{/css/index.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
-<h1>Главная страница</h1>
+<h1>Личный аккаунт</h1>
+<form method="post" action="/logout">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <input type="submit" value="Выход">
+</form>
 <h2>Сортировка, поиск, фильтрация</h2>
-<form th:method="POST" th:action="@{/product/search}">
+<form th:method="POST" th:action="@{/person_account/product/search}">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <fieldset>
         <legend>
             Выберите параметры для сортировки, поиска, фильтрации:
         </legend>
         <label for="search">Поиск по наименованию</label>
-        <input type="text" id="search" name="search">
+        <input type="text" id="search" name="search" th:value="*{value_search}">
         <br>
         <p>Цена, Р</p>
         <label for="ot"> От </label>
-        <input type="text" name="ot" id="ot">
+        <input type="text" name="ot" id="ot" th:value="*{value_price_ot}">
         <label for="do"> До </label>
-        <input type="text" name="do" id="do">
+        <input type="text" name="do" id="do" th:value="*{value_price_do}">
         <br><br>
         <div>
-            <input type="radio" id="ascending_price" name="price">
+            <input type="radio" id="ascending_price" name="price" value="sorted_by_ascending_price">
             <label for="ascending_price">Отсортировать по возрастанию цены</label>
-            <input type="radio" id="descending_price" name="price">
+            <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
             <label for="descending_price">Отсортировать по убыванию цены</label>
             <p>Категория товара: </p>
-            <input type="radio" id="furniture" name="contract">
+            <input type="radio" id="furniture" name="contract" value="furniture">
             <label for="furniture">Мебель</label>
-            <input type="radio" id="appliances" name="contract">
+            <input type="radio" id="appliances" name="contract" value="appliances">
             <label for="appliances">Бытовая техника</label>
-            <input type="radio" id="clothes" name="contract">
+            <input type="radio" id="clothes" name="contract" value="clothes">
             <label for="clothes">Одежда</label>
             <br><br>
             <input type="submit" value="Найти">
         </div>
     </fieldset>
-
-</form>
-<form method="post" action="/logout">
-    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-    <input type="submit" value="Выход">
 </form>
 
-<h1>Доступные товары</h1>
-<div th:each="element : ${products}">
+<hr><hr>
+<h3>Результаты поиска</h3>
+<div th:each="element : ${search_product}">
     <img th:src="'/img/'+${element.imageList[0].getFileName()}" width="200px">
-    <a th:href="@{product/info/{id}(id=${element.getId()})}" th:text="${element.getTitle()}"></a>
+    <a th:href="@{/person_account/product/info/{id}(id=${element.getId()})}" th:text="${element.getTitle()}"></a>
+    <p th:text="'Цена - ' + ${element.getPrice()} + 'р.'"></p>
+    <hr>
+</div>
+
+<hr><hr>
+
+<h2>Все доступные товары:</h2>
+
+<div th:each="element : ${products}" style="background: silver">
+    <img th:src="'/img/'+${element.imageList[0].getFileName()}" width="200px">
+    <a th:href="@{/person_account/product/info/{id}(id=${element.getId()})}" th:text="${element.getTitle()}"></a>
     <p th:text="'Цена - ' + ${element.getPrice()} + 'р.'"></p>
     <hr>
 </div>
