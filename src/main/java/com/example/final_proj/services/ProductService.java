@@ -22,6 +22,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+
     public Product getProduct(int id){
         Optional<Product> optionalProduct = productRepository.findById(id);
         return optionalProduct.orElse(null);
