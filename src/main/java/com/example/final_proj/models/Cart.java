@@ -1,4 +1,4 @@
-package com.example.springsecurityapplication.models;
+package com.example.final_proj.models;
 
 import jakarta.persistence.*;
 
