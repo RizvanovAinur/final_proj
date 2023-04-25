@@ -1,6 +1,9 @@
 package com.example.final_proj.controllers;
 
+import com.example.final_proj.models.Cart;
 import com.example.final_proj.models.Person;
+import com.example.final_proj.models.Product;
+import com.example.final_proj.repository.CartRepository;
 import com.example.final_proj.repository.ProductRepository;
 import com.example.final_proj.security.PersonDetails;
 import com.example.final_proj.services.PersonService;
@@ -14,6 +17,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Controller
 public class MainController {
     private final PersonValidator personValidator;
@@ -23,11 +29,14 @@ public class MainController {
 
     private final ProductRepository productRepository;
 
-    public MainController(PersonValidator personValidator, PersonService personService, ProductService productService, ProductRepository productRepository) {
+    private final CartRepository cartRepository;
+
+    public MainController(PersonValidator personValidator, PersonService personService, ProductService productService, ProductRepository productRepository, CartRepository cartRepository) {
         this.personValidator = personValidator;
         this.personService = personService;
         this.productService = productService;
         this.productRepository = productRepository;
+        this.cartRepository = cartRepository;
     }
 
     @GetMapping("/person_account")
@@ -109,4 +118,43 @@ public class MainController {
         return "user/infoProduct";
     }
 
+    @GetMapping("/cart/add/{id}")
+    public String addProductInCart(@PathVariable("id") int id, Model model){
+        // Получаем продукт по id
+        Product product = productService.getProduct(id);
+        // Извлекаем объект аутентифицированного пользователя
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        // Извлекаем id пользователя из объекта
+        int id_person = personDetails.getPerson().getId();
+        Cart cart = new Cart(id_person, product.getId());
+        cartRepository.save(cart);
+        return "redirect:/cart";
+    }
+
+    @GetMapping("/cart")
+    public String cart(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        // Извлекаем id пользователя из объекта
+        int id_person = personDetails.getPerson().getId();
+
+        List<Cart> cartList = cartRepository.findByPersonId(id_person);
+        List<Product> productList = new ArrayList<>();
+
+        // Получаем продукты из корзины по id товара
+        for (Cart cart: cartList) {
+            productList.add(productService.getProduct(cart.getProductId()));
+        }
+
+        // Вычисление итоговой цена
+        float price = 0;
+        for (Product product: productList) {
+            price += product.getPrice();
+        }
+
+        model.addAttribute("price", price);
+        model.addAttribute("cart_product", productList);
+        return "/user/cart";
+    }
 }
