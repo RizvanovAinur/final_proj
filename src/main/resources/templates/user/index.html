@@ -7,6 +7,39 @@
 </head>
 <body>
 <h1>Главная страница</h1>
+<h2>Сортировка, поиск, фильтрация</h2>
+<form th:method="POST" th:action="@{/product/search}">
+    <fieldset>
+        <legend>
+            Выберите параметры для сортировки, поиска, фильтрации:
+        </legend>
+        <label for="search">Поиск по наименованию</label>
+        <input type="text" id="search" name="search">
+        <br>
+        <p>Цена, Р</p>
+        <label for="ot"> От </label>
+        <input type="text" name="ot" id="ot">
+        <label for="do"> До </label>
+        <input type="text" name="do" id="do">
+        <br><br>
+        <div>
+            <input type="radio" id="ascending_price" name="price">
+            <label for="ascending_price">Отсортировать по возрастанию цены</label>
+            <input type="radio" id="descending_price" name="price">
+            <label for="descending_price">Отсортировать по убыванию цены</label>
+            <p>Категория товара: </p>
+            <input type="radio" id="furniture" name="contract">
+            <label for="furniture">Мебель</label>
+            <input type="radio" id="appliances" name="contract">
+            <label for="appliances">Бытовая техника</label>
+            <input type="radio" id="clothes" name="contract">
+            <label for="clothes">Одежда</label>
+            <br><br>
+            <input type="submit" value="Найти">
+        </div>
+    </fieldset>
+
+</form>
 <form method="post" action="/logout">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <input type="submit" value="Выход">
