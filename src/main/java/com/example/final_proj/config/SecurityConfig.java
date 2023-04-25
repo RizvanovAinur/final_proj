@@ -31,7 +31,7 @@ public class SecurityConfig{
                 .requestMatchers("/admin").hasRole("ADMIN")
                 .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and() //Позоляет соединять разные компоненты в рамках конфигурации (настройка аутентификации-ниже, с настройкой доступа-выше)
-                .formLogin().loginPage("/authentication") //При заходе на защещенные страницы надо направлять на нашу страницу аутентификации
+                .formLogin().loginPage("/product") //При заходе на защещенные страницы надо направлять на нашу страницу аутентификации
                 .loginProcessingUrl("/process_login") //При нажатии на кнопку при входе данные будут направлятся сюда (встроенная проверка SpringSecurity)
                 .defaultSuccessUrl("/person_account", true) //На какую страницу направлется пользователь после успешной аутентификации (true-что бы
                 //в любом случае после УСПЕШНОЙ аутентификации )
