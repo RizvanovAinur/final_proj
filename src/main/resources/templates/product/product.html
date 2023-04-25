@@ -23,28 +23,42 @@
         <input type="text" name="do" id="do" th:value="*{value_price_do}">
         <br><br>
         <div>
-            <input type="radio" id="ascending_price" name="price">
+            <input type="radio" id="ascending_price" name="price" value="sorted_by_ascending_price">
             <label for="ascending_price">Отсортировать по возрастанию цены</label>
-            <input type="radio" id="descending_price" name="price">
+            <input type="radio" id="descending_price" name="price" value="sorted_by_descending_price">
             <label for="descending_price">Отсортировать по убыванию цены</label>
             <p>Категория товара: </p>
-            <input type="radio" id="furniture" name="contract">
+            <input type="radio" id="furniture" name="contract" value="furniture">
             <label for="furniture">Мебель</label>
-            <input type="radio" id="appliances" name="contract">
+            <input type="radio" id="appliances" name="contract" value="appliances">
             <label for="appliances">Бытовая техника</label>
-            <input type="radio" id="clothes" name="contract">
+            <input type="radio" id="clothes" name="contract" value="clothes">
             <label for="clothes">Одежда</label>
             <br><br>
             <input type="submit" value="Найти">
         </div>
     </fieldset>
-
 </form>
-<div th:each="element : ${products}">
+
+<hr><hr>
+<h3>Результаты поиска</h3>
+<div th:each="element : ${search_product}">
+    <img th:src="'/img/'+${element.imageList[0].getFileName()}" width="200px">
+    <a th:href="@{product/info/{id}(id=${element.getId()})}" th:text="${element.getTitle()}"></a>
+    <p th:text="'Цена - ' + ${element.getPrice()} + 'р.'"></p>
+    <hr>
+</div>
+
+<hr><hr>
+
+<h2>Все доступные товары:</h2>
+
+<div th:each="element : ${products}" style="background: silver">
   <img th:src="'/img/'+${element.imageList[0].getFileName()}" width="200px">
   <a th:href="@{product/info/{id}(id=${element.getId()})}" th:text="${element.getTitle()}"></a>
   <p th:text="'Цена - ' + ${element.getPrice()} + 'р.'"></p>
   <hr>
 </div>
+
 </body>
 </html>
