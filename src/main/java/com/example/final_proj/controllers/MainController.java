@@ -157,4 +157,20 @@ public class MainController {
         model.addAttribute("cart_product", productList);
         return "/user/cart";
     }
+    @GetMapping("/cart/delete/{id}")
+    public String deleteProductFromCart(Model model, @PathVariable("id") int id){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        // Извлекаем id пользователя из объекта
+        int id_person = personDetails.getPerson().getId();
+        List<Cart> cartList = cartRepository.findByPersonId(id_person);
+        List<Product> productList = new ArrayList<>();
+
+        // Получаем продукты из корзины по id товара
+        for (Cart cart: cartList) {
+            productList.add(productService.getProduct(cart.getProductId()));
+        }
+        cartRepository.deleteCartByProductId(id);
+        return "redirect:/cart";
+    }
 }

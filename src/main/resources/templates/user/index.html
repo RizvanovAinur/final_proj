@@ -11,6 +11,10 @@
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     <input type="submit" value="Выход">
 </form>
+<form method="get" th:action="@{/cart}">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <input type="submit" value="Корзина">
+</form>
 <h2>Сортировка, поиск, фильтрация</h2>
 <form th:method="POST" th:action="@{/person_account/product/search}">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
