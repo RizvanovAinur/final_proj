@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1>Информация о товаре</h1>
+<a th:href="@{/product}">Назад</a>
 <p th:text="'Наименование: ' + ${product.getTitle()}"></p>
 <p th:text="'Описание: ' + ${product.getDescription()}"></p>
 <p th:text="'Цена: ' + ${product.getPrice()}"></p>

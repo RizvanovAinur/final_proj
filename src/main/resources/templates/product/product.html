@@ -44,7 +44,7 @@
 <h3>Результаты поиска</h3>
 <div th:each="element : ${search_product}">
     <img th:src="'/img/'+${element.imageList[0].getFileName()}" width="200px">
-    <a th:href="@{product/info/{id}(id=${element.getId()})}" th:text="${element.getTitle()}"></a>
+    <a th:href="@{info/{id}(id=${element.getId()})}" th:text="${element.getTitle()}"></a>
     <p th:text="'Цена - ' + ${element.getPrice()} + 'р.'"></p>
     <hr>
 </div>
