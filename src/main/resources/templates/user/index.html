@@ -59,6 +59,7 @@
     <img th:src="'/img/'+${element.imageList[0].getFileName()}" width="200px">
     <a th:href="@{/person_account/product/info/{id}(id=${element.getId()})}" th:text="${element.getTitle()}"></a>
     <p th:text="'Цена - ' + ${element.getPrice()} + 'р.'"></p>
+    <a th:href="@{/cart/add/{id}(id=${element.getId()})}">Добавить товар в корзину</a>
     <hr>
 </div>
 

@@ -76,6 +76,9 @@ public class MainController {
     @PostMapping("/person_account/product/search")
     public String productSearch(@RequestParam("search") String search, @RequestParam("ot") String ot, @RequestParam("do") String Do, @RequestParam(value = "price", required = false, defaultValue = "") String price, @RequestParam(value = "contract", required = false, defaultValue = "")String contract, Model model){
         model.addAttribute("products", productService.getAllProduct());
+        model.addAttribute("value_search", search);
+        model.addAttribute("value_price_ot", ot);
+        model.addAttribute("value_price_do", Do);
 
         if(!ot.isEmpty() & !Do.isEmpty()){
             if(!price.isEmpty()){
@@ -111,12 +114,7 @@ public class MainController {
         } else {
             model.addAttribute("search_product", productRepository.findByTitleContainingIgnoreCase(search));
         }
-
-        model.addAttribute("value_search", search);
-        model.addAttribute("value_price_ot", ot);
-        model.addAttribute("value_price_do", Do);
-
-        return "user/index";
+                return "user/index";
     }
 
     @GetMapping("/person_account/product/info/{id}")
