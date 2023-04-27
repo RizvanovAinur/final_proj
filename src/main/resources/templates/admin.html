@@ -19,11 +19,12 @@
 <p th:text="'Cклад: ' + ${element.getWarehouse()}"></p>
 <p th:text="'Продавец: ' + ${element.getSeller()}"></p>
 <p th:text="'Категория: ' + ${element.getCategory().getName()}"></p>
-    <div style="display: flex">
+    <div style="display: flex; flex-wrap: wrap">
         <div th:each="img : ${element.getImageList()}" style="margin: 5px; padding: 0px;">
             <img th:src="'/img/' + ${img.getFileName()}">
         </div>
     </div>
+    <a th:href="@{/admin/product/info/{id}(id=${element.getId()})}" th:text="${element.getTitle()}"></a>
 <a th:href="@{/admin/product/edit/{id}(id=${element.getId()})}">Редактирование товара</a>
 <a th:href="@{/admin/product/delete/{id}(id=${element.getId()})}">Удаление товара</a>
 <hr>

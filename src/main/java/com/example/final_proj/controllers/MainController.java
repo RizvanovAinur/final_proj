@@ -123,6 +123,12 @@ public class MainController {
         return "user/infoProduct";
     }
 
+    @GetMapping("/admin/product/info/{id}")
+    public String infoProductAdmin(@PathVariable("id") int id, Model model){
+        model.addAttribute("product", productService.getProduct(id));
+        return "adminProduct";
+    }
+
     @GetMapping("/cart/add/{id}")
     public String addProductInCart(@PathVariable("id") int id, Model model){
         // Получаем продукт по id

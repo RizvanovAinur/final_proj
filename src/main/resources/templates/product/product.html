@@ -43,23 +43,24 @@
 
 <hr><hr>
 <h3>Результаты поиска</h3>
-<div th:each="element : ${search_product}">
-    <img th:src="'/img/'+${element.imageList[0].getFileName()}" width="200px">
-    <a th:href="@{info/{id}(id=${element.getId()})}" th:text="${element.getTitle()}"></a>
-    <p th:text="'Цена - ' + ${element.getPrice()} + 'р.'"></p>
-    <hr>
+<div style="display: flex; flex-wrap: wrap">
+    <div th:each="element : ${search_product}">
+        <img th:src="'/img/'+${element.imageList[0].getFileName()}" width="200px">
+        <a th:href="@{info/{id}(id=${element.getId()})}" th:text="${element.getTitle()}"></a>
+        <p th:text="'Цена - ' + ${element.getPrice()} + 'р.'"></p>
+        <hr>
+    </div>
 </div>
-
 <hr><hr>
 
 <h2>Все доступные товары:</h2>
-
-<div th:each="element : ${products}" style="background: silver">
-  <img th:src="'/img/'+${element.imageList[0].getFileName()}" width="200px">
-  <a th:href="@{product/info/{id}(id=${element.getId()})}" th:text="${element.getTitle()}"></a>
-  <p th:text="'Цена - ' + ${element.getPrice()} + 'р.'"></p>
-  <hr>
+<div style="display: flex; flex-wrap: wrap">
+    <div th:each="element : ${products}" style="background: silver;">
+      <img th:src="'/img/'+${element.imageList[0].getFileName()}" width="200px">
+      <a th:href="@{product/info/{id}(id=${element.getId()})}" th:text="${element.getTitle()}"></a>
+      <p th:text="'Цена - ' + ${element.getPrice()} + 'р.'"></p>
+      <hr>
+    </div>
 </div>
-
 </body>
 </html>
