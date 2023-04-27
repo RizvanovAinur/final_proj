@@ -43,7 +43,7 @@ public class ProductService {
     }
     @Transactional
     public void deleteProduct(int id){
-        imageRepository.deleteById(id);
+        productRepository.deleteById(id);
     }
 
 }
