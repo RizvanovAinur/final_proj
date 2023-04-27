@@ -16,6 +16,7 @@
 <div style="display: flex">
     <div th:each="img : ${product.getImageList()}" style="margin: 5px; padding: 0px;">
         <img th:src="'/img/' + ${img.getFileName()}">
+        <a th:href="@{/admin/product/foto/delete/{id}(id=${img.getId()})}">Удаление картинки</a>
     </div>
 </div>
 </body>

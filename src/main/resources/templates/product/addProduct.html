@@ -41,11 +41,28 @@
       <br>
       <span style="color: red;"> Вы можете добавить от 1 до 5 фотографий!!!</span>
       <br>
-      <input type="file" name="file_one"><br>
-      <input type="file" name="file_two"><br>
-      <input type="file" name="file_three"><br>
-      <input type="file" name="file_four"><br>
-      <input type="file" name="file_five"><br>
+      <div style="display: flex; flex-wrap: wrap; margin: 5px">
+        <div style="width: 250px; margin: 5px">
+          <input type="button" id="loadFileXml1" value="Выберите фото" onclick="document.getElementById('file1').click();" />
+          <input type="file" style="display:none;" id="file1" name="file_one"/>
+        </div>
+        <div style="width: 250px; margin: 5px">
+          <input type="button" id="loadFileXml2" value="Выберите фото" onclick="document.getElementById('file2').click();" />
+          <input type="file" style="display:none;" id="file2" name="file_two"/>
+        </div>
+        <div style="width: 250px; margin: 5px">
+          <input type="button" id="loadFileXml3" value="Выберите фото" onclick="document.getElementById('file3').click();" />
+          <input type="file" style="display:none;" id="file3" name="file_three"/>
+        </div>
+        <div style="width: 250px; margin: 5px">
+          <input type="button" id="loadFileXml4" value="Выберите фото" onclick="document.getElementById('file4').click();" />
+          <input type="file" style="display:none;" id="file4" name="file_four"/>
+        </div>
+        <div style="width: 250px; margin: 5px">
+          <input type="button" id="loadFileXml5" value="Выберите фото" onclick="document.getElementById('file5').click();" />
+          <input type="file" style="display:none;" id="file5" name="file_five"/>
+        </div>
+      </div>
       <input type="submit" value="Добавить">
     </form>
   </body>
