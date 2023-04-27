@@ -2,6 +2,7 @@ package com.example.final_proj.services;
 
 import com.example.final_proj.models.Category;
 import com.example.final_proj.models.Product;
+import com.example.final_proj.repository.ImageRepository;
 import com.example.final_proj.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,8 +15,11 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
 
-    public ProductService(ProductRepository productRepository) {
+    private final ImageRepository imageRepository;
+
+    public ProductService(ProductRepository productRepository, ImageRepository imageRepository) {
         this.productRepository = productRepository;
+        this.imageRepository = imageRepository;
     }
     //Получаем все продукты
     public List<Product> getAllProduct(){
@@ -39,7 +43,7 @@ public class ProductService {
     }
     @Transactional
     public void deleteProduct(int id){
-        productRepository.deleteById(id);
+        imageRepository.deleteById(id);
     }
 
 }
