@@ -249,25 +249,29 @@ public class AdminController {
     }
 
     @PostMapping("/admin/edit/status/{id}")
-    public String editStatus(@ModelAttribute("order") Order order, @PathVariable("id") int id,  Model model) throws IOException {
+    public String editStatus(@ModelAttribute("orders") Order order, @PathVariable("id") int id,  Model model) throws IOException {
+        //order.setId(id);
+        //order.setStatus(order.getStatus());
+        //orderService.updateOrder(id, order);
 
-        System.out.println( id+ "====================================================================================================================================================");
-        System.out.println( order.getStatus()+ "====================================================================================================================================================");
-        orderService.updateStatus(id, id);
-//        switch (order.getStatus()){
-//            case Принят:
-//                orderRepository.updateStatus(1, id);
-//                break;
-//            case Оформлен:
-//                orderRepository.updateStatus(2, id);
-//                break;
-//            case Ожидает:
-//                orderRepository.updateStatus(3, id);
-//                break;
-//            case Получен:
-//                orderRepository.updateStatus(4, id);
-//                break;
-//        }
+
+//        System.out.println( id+ "====================================================================================================================================================");
+//        System.out.println( order.getStatus()+ "====================================================================================================================================================");
+       // orderService.updateStatus(id, id);
+        switch (order.getStatus()){
+            case Принят:
+                orderRepository.updateIdStatus(0,id);
+                break;
+            case Оформлен:
+                orderRepository.updateIdStatus(1,id);
+                break;
+            case Ожидает:
+                orderRepository.updateIdStatus(2,id);
+                break;
+            case Получен:
+                orderRepository.updateIdStatus(3,id);
+                break;
+        }
 
        // orderRepository.updateStatus(id);
 
@@ -281,7 +285,7 @@ public class AdminController {
     public String productSearch(@RequestParam("search") String search, Model model){
 
        // model.addAttribute("value_search", search);
-
+        model.addAttribute("status", Status.values());
         model.addAttribute("search_order", orderRepository.findByName(search));
         model.addAttribute("orders", orderRepository.findAll());
 

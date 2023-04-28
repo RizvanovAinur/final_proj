@@ -14,11 +14,12 @@ import java.util.List;
 @Repository
 public interface OrderRepository extends JpaRepository<Order, Integer> {
     List<Order> findByPerson(Person person);
+
     @Modifying
-    @Query(value = "update orders set status = ?1 where id = ?2;", nativeQuery = true)
+    @Query(value = "update orders set status = ?1 where id = ?2", nativeQuery = true)
     void updateIdStatus(int status,  int id);
 
-    @Query(value = "select * from orders where (lower(number) LIKE %?1%) or (lower(number) LIKE '?1%')", nativeQuery = true)
+    @Query(value = "select * from orders where ((lower(number) LIKE %?1%) or (lower(number) LIKE '?1%'))", nativeQuery = true)
     List<Order> findByName(String number);
 
 }

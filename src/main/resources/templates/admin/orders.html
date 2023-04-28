@@ -16,7 +16,7 @@
       Введите последние 4 буквы/цифры заказа:
     </legend>
     <label for="search">Поиск по наименованию</label>
-    <input type="text" id="search" name="search" th:value="*{value_search}">
+    <input type="text" id="search" name="search">
     <br>
       <input type="submit" value="Найти">
     </div>
@@ -25,7 +25,7 @@
 
 <hr><hr>
 <h3>Результаты поиска</h3>
-    <div th:each="order : ${search_order}">
+    <div th:each="order : ${search_order}" style="background: silver">
       <h3 th:text="'Заказ №' + ${order.getNumber()}"></h3>
       <img th:src="'/img/' + ${order.getProduct().getImageList()[0].getFileName()}" width="100px">
       <p th:text="'Наименование: ' + ${order.getProduct().getTitle()}">
@@ -35,7 +35,7 @@
       <p th:text="'Статус: ' + ${order.getStatus()}"> </p>
       <form th:method="POST" th:action="@{/admin/edit/status/{id}(id=${order.getId()})}" th:object="${order}">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-        <select name="status" id="status">
+        <select name="status" id="status2">
           <div th:each="element: ${status}">
             <option th:text="${element}" th:value="${element}"></option>
           </div>
@@ -55,7 +55,7 @@
   <p th:text="'Статус: ' + ${order.getStatus()}"> </p>
   <form th:method="POST" th:action="@{/admin/edit/status/{id}(id=${order.getId()})}" th:object="${order}">
     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-  <select name="status" id="status">
+  <select name="status" th:fields="*{status}" id="status">
     <div th:each="element: ${status}">
       <option th:text="${element}" th:value="${element}"></option>
     </div>
