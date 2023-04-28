@@ -1,11 +1,15 @@
 package com.example.final_proj.controllers;
 
+import com.example.final_proj.enumm.Status;
 import com.example.final_proj.models.Category;
 import com.example.final_proj.models.Image;
+import com.example.final_proj.models.Order;
 import com.example.final_proj.models.Product;
 import com.example.final_proj.repository.CategoryRepository;
 import com.example.final_proj.repository.ImageRepository;
+import com.example.final_proj.repository.OrderRepository;
 import com.example.final_proj.services.ImageService;
+import com.example.final_proj.services.OrderService;
 import com.example.final_proj.services.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,7 +21,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.UUID;
 
 @Controller
@@ -26,14 +29,20 @@ public class AdminController {
     private final ProductService productService;
     private final ImageService imageService;
 
+    private final OrderService orderService;
+
+    private final OrderRepository orderRepository;
+
     @Value("${upload.path}")
     private String uploadPath;
     private CategoryRepository categoryRepository;
 
-    public AdminController(ImageRepository imageRepository, ProductService productService, ImageService imageService, CategoryRepository categoryRepository) {
+    public AdminController(ImageRepository imageRepository, ProductService productService, ImageService imageService, OrderRepository orderRepository, OrderService orderService, OrderRepository orderRepository1, CategoryRepository categoryRepository) {
         this.imageRepository = imageRepository;
         this.productService = productService;
         this.imageService = imageService;
+        this.orderService = orderService;
+        this.orderRepository = orderRepository1;
         this.categoryRepository = categoryRepository;
     }
 
@@ -231,4 +240,41 @@ public class AdminController {
 
         return "redirect:/admin";
     }
+
+    @GetMapping("admin/orders")
+    public String orderUser(Model model){
+        model.addAttribute("status", Status.values());
+        model.addAttribute("orders", orderRepository.findAll());
+        return "/admin/orders";
+    }
+
+    @PostMapping("/admin/edit/status/{id}")
+    public String editStatus(@ModelAttribute("order") Order order, @PathVariable("id") int id,  Model model) throws IOException {
+
+        System.out.println( id+ "====================================================================================================================================================");
+        System.out.println( order.getStatus()+ "====================================================================================================================================================");
+        orderService.updateStatus(id, id);
+//        switch (order.getStatus()){
+//            case Принят:
+//                orderRepository.updateStatus(1, id);
+//                break;
+//            case Оформлен:
+//                orderRepository.updateStatus(2, id);
+//                break;
+//            case Ожидает:
+//                orderRepository.updateStatus(3, id);
+//                break;
+//            case Получен:
+//                orderRepository.updateStatus(4, id);
+//                break;
+//        }
+
+       // orderRepository.updateStatus(id);
+
+ //       model.addAttribute("status", Status.values());
+//        model.addAttribute("orders", orderRepository.findAll());
+
+        return "redirect:/admin/orders";
+    }
+
 }

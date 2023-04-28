@@ -28,7 +28,7 @@ public class SecurityConfig{
                 .authorizeHttpRequests() // все страницы должны быть защищены аутентификацией
                 .requestMatchers("/authentication", "/error", "/registration", "/resources/**", "/static/**","/css/**","/logout", "/product", "/img/**", "product/info/**", "/product/search", "/product/**").permitAll() //Всем пользователям доступны страницы атентификации и объект ошибки
 ///                .anyRequest().authenticated() //Для любых других нужно аутентифицироваться
-                .requestMatchers("/admin").hasRole("ADMIN")
+                .requestMatchers("/admin", "/admin/**", "/admin/edit/**", "/admin/edit/status/**").hasRole("ADMIN")
                 .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and() //Позоляет соединять разные компоненты в рамках конфигурации (настройка аутентификации-ниже, с настройкой доступа-выше)
                 .formLogin().loginPage("/product") //При заходе на защещенные страницы надо направлять на нашу страницу аутентификации

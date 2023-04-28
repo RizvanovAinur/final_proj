@@ -12,6 +12,7 @@
     <button type="submit">Выйти из кабинета администратора</button>
 </form>
 <a href="admin/product/add">Добавить товар</a>
+<a href="admin/orders">Просмотр заказов</a>
 <div th:each="element : ${products}">
 <p th:text="'Наименование: ' + ${element.getTitle()}"></p>
 <p th:text="'Описание: ' + ${element.getDescription()}"></p>
