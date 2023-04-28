@@ -277,4 +277,16 @@ public class AdminController {
         return "redirect:/admin/orders";
     }
 
+    @PostMapping("/admin/order/search")
+    public String productSearch(@RequestParam("search") String search, Model model){
+
+       // model.addAttribute("value_search", search);
+
+        model.addAttribute("search_order", orderRepository.findByName(search));
+        model.addAttribute("orders", orderRepository.findAll());
+
+        return "admin/orders";
+    }
+
+
 }
